@@ -33,11 +33,12 @@ const touch = {
     y: innerHeight/2
 }
 
-//Update color and number of Particles here (Some Presets Available. Just Uncomment 1 of them)
+//Update color,number of Particles, maxRadius here (Some Color Presets Available. Just Uncomment 1 of them)
 //const colors = ['#5F698D', '#6791A7', '#6CB7C1', '#60D7D0', '#5DEFDF']
 // const colors = ['#EB6896', '#C36894', '#836890', '#46698D', '#0F6A8B']
 const colors = ['#EB6896', '#C36894', '#836890', '#46698D', '#0F6A8B']
 const numOfParticles = 50;
+const maxRadius = 5;
 
 // Event Listeners
 
@@ -127,7 +128,7 @@ function init() {
     particles = [];
 
     for (let i = 0; i < numOfParticles; i++) {
-        const radius = (Math.random() * 2) + 1;
+        const radius = (Math.random() * maxRadius) + 1;
         particles.push( new Particle( canvas.width/2, canvas.height/2, radius, randomColor(colors)));
     }
     console.log(particles);
