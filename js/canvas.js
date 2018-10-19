@@ -41,17 +41,27 @@ const numOfParticles = 50;
 
 // Event Listeners
 
-//Mouse
-addEventListener('mousemove', event => {
+//Mouse event
+addEventListener('mousemove', function(event) {
     mouse.x = event.clientX
     mouse.y = event.clientY
 })
 
-//Touch
-addEventListener('touchmove', event =>{
-    mouse.x = event.x;
-    mouse.y = event.y;
-})
+//Touch event
+addEventListener('touchmove', function (e) {
+    // stop touch event
+    e.stopPropagation();
+    e.preventDefault();
+
+    // translate to mouse event
+    var mEvent = document.createEvent('MouseEvent');
+    mEvent.initMouseEvent('mousemove', true, true, window, e.detail, 
+                 e.touches[0].screenX, e.touches[0].screenY, 
+                 e.touches[0].clientX, e.touches[0].clientY, 
+                 false, false, false, false, 
+                 0, null);
+    dispatchEvent(mEvent);
+}, false);
 
 //Screen resize
 addEventListener('resize', () => {
