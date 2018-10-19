@@ -1,4 +1,3 @@
-//import utils from './utils'
 
 // UTILa area
 function randomIntFromRange(min, max) {
@@ -22,20 +21,39 @@ const c = canvas.getContext('2d')
 
 canvas.width = innerWidth
 canvas.height = innerHeight
+canvas.style.backgroundColor = "rgba(0, 0, 0, 1)";
 
 const mouse = {
     x: innerWidth / 2,
     y: innerHeight / 2
 }
 
-const colors = ['#5F698D', '#6791A7', '#6CB7C1', '#60D7D0', '#5DEFDF']
+const touch = {
+    x: innerWidth/2,
+    y: innerHeight/2
+}
+
+//Update color and number of Particles here (Some Presets Available. Just Uncomment 1 of them)
+//const colors = ['#5F698D', '#6791A7', '#6CB7C1', '#60D7D0', '#5DEFDF']
+// const colors = ['#EB6896', '#C36894', '#836890', '#46698D', '#0F6A8B']
+const colors = ['#EB6896', '#C36894', '#836890', '#46698D', '#0F6A8B']
+const numOfParticles = 50;
 
 // Event Listeners
+
+//Mouse
 addEventListener('mousemove', event => {
     mouse.x = event.clientX
     mouse.y = event.clientY
 })
 
+//Touch
+addEventListener('touchmove', event =>{
+    mouse.x = event.x;
+    mouse.y = event.y;
+})
+
+//Screen resize
 addEventListener('resize', () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
@@ -50,7 +68,7 @@ function Particle(x, y, radius, color) {
     this.radius = radius
     this.color = color
     this.radians = Math.random() * Math.PI *2;
-    this.velocity = 0.05;
+    this.velocity = Math.random()* 0.05 + 0.01;
     this.distanceFromCenter = randomIntFromRange(50,150);
     this.lastMouse = {
         x: x,
@@ -98,20 +116,25 @@ let particles = [];
 function init() {
     particles = [];
 
-    for (let i = 0; i <50; i++) {
+    for (let i = 0; i < numOfParticles; i++) {
         const radius = (Math.random() * 2) + 1;
         particles.push( new Particle( canvas.width/2, canvas.height/2, radius, randomColor(colors)));
     }
     console.log(particles);
     
 }
-
+renderCount = 0;
 // Animation Loop
 function animate() {
     requestAnimationFrame(animate)
     // c.clearRect(0, 0, canvas.width, canvas.height)
-    c.fillStyle = 'rgba(255, 255, 255, 0.05)';
-    c.fillRect(0,0, canvas.width, canvas.height);
+
+    if((renderCount++) % 2 == 0) {
+        c.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        c.fillRect(0,0, canvas.width, canvas.height);
+    }
+    // c.fillStyle = 'rgba(0, 0, 0, 0.07)';
+    // c.fillRect(0,0, canvas.width, canvas.height);
     particles.forEach(particle => {
      particle.update();
     });
