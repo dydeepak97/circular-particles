@@ -71,7 +71,7 @@ addEventListener('resize', () => {
     mouse.x = canvas.width/2;
     mouse.y = canvas.height/2;
 
-    init()
+    //init()
 })
 
 // Objects
