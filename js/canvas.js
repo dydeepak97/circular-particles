@@ -68,6 +68,8 @@ addEventListener('touchmove', function (e) {
 addEventListener('resize', () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
+    mouse.x = canvas.width/2;
+    mouse.y = canvas.height/2;
 
     init()
 })
